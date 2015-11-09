@@ -24,15 +24,11 @@ public class PathCategoryBuilderTest {
 
 	@Test
 	public void testPathCategoryBuilder() {
-
 		pathCategoryBuilder.build(categoryDAO.findOne(6L));
-		
-		for(Category c : pathCategoryBuilder.getPathCategory()) {
-			System.out.println(c.getName());
-		}
-
-		System.out.println(pathCategoryBuilder.getPathCategory().size());
-
+		assertEquals(3, pathCategoryBuilder.getPathCategory().size());
+		assertEquals("A", pathCategoryBuilder.getPathCategory().get(0));
+		assertEquals("AB", pathCategoryBuilder.getPathCategory().get(1));
+		assertEquals("ABC", pathCategoryBuilder.getPathCategory().get(2));
 	}
 
 }
