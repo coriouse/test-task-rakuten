@@ -117,8 +117,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-	
-	
+					
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>

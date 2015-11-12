@@ -42,43 +42,19 @@
 .tg .tg-4eph {
 	background-color: #f9f9f9
 }
+.errorblock{
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding:8px;
+	margin:16px;
+}
+
 </style>
 </head>
-<body>
-	<h1>Add Product</h1>
+<body>	
 
-	<c:url var="addAction" value="/product/edit"></c:url>
-
-
-
-	<form:form action="${addAction}" commandName="product">
-		<table>
-			<c:if test="${!empty product.name}">
-				<tr>
-					<td><form:label path="id">
-							<spring:message text="ID" />
-						</form:label></td>
-					<td><form:input path="id" readonly="true" size="8"
-							disabled="true" /> <form:hidden path="id" /></td>
-				</tr>
-			</c:if>
-			<tr>
-				<td><form:label path="name">
-						<spring:message text="Name" />
-					</form:label></td>
-				<td><form:input path="name" /></td>
-			</tr>
-
-			<tr>
-				<td colspan="2"><c:if test="${!empty product.name}">
-						<input type="submit" value="<spring:message text="Edit"/>" />
-					</c:if> <c:if test="${empty product.name}">
-						<input type="submit" value="<spring:message text="Create"/>" />
-					</c:if></td>
-			</tr>
-		</table>
-	</form:form>
-
+<a href="<c:url value='/create' />">Add new Product</a>
 	<br>
 	<h3>Products</h3>
 	<c:if test="${!empty listProducts}">
@@ -86,6 +62,11 @@
 			<tr>
 				<th width="80">ID</th>
 				<th width="120">Name</th>
+				
+				<th width="120">Price</th>
+				<th width="120">Description</th>
+				<th width="120">Avaliable</th>				
+				<th width="120">Category</th>
 				<th width="120">Path Category</th>
 				<th width="60">Edit</th>
 				<th width="60">Delete</th>
@@ -94,9 +75,22 @@
 				<tr>
 					<td>${product.id}</td>
 					<td>${product.name}</td>
-					<td></td>
+					<td>${product.price}</td>
+					<td>${product.description}</td>					
+					<td>${product.avaliable}</td>
+					<td>${product.category.name}</td>
+					
+					<td>
+						<table>
+							<tr>
+								<c:forEach items="${product.path}" var="category">								
+									<td>${category.name}</td>														
+								</c:forEach>
+							</tr>
+						</table>	
+					</td>
 					<td><a href="<c:url value='/edit/${product.id}' />">Edit</a></td>
-					<td><a href="<c:url value='/remove/${product.id}' />">Delete</a></td>
+					<td><a href="<c:url value='/delete/${product.id}' />">Delete</a></td>
 				</tr>
 			</c:forEach>
 		</table>

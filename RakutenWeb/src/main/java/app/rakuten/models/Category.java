@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,9 +40,8 @@ public class Category implements Serializable {
 
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "categoryPath")
-	private Collection<Product> items = new LinkedHashSet<Product>();
+	@OneToMany(mappedBy="category")	
+	private Set<Product> products;
 
 	public String getName() {
 		return name;
@@ -51,24 +51,16 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	/**
-	 * @return the items
-	 */
-	public Collection<Product> getItems() {
-		return items;
+
+	public Set<Product> getProducts() {
+		return products;
 	}
 
-	/**
-	 * @param items
-	 *            the items to set
-	 */
-	public void setItems(Collection<Product> items) {
-		this.items = items;
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public Long getId() {
 		return id;
 	}

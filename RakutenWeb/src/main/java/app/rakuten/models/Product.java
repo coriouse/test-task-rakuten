@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * An item in an order
@@ -23,13 +27,16 @@ public class Product implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id	
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
-
-	@ManyToOne
+	
+	@NotNull
+	@ManyToOne	
+	@JoinColumn(name = "categoryPath")
 	private Category category;
-
+	
+	@NotEmpty
 	private String name;
 
 	private float price;
