@@ -1,5 +1,6 @@
 package app.rakuten.cache;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import app.rakuten.dao.CategoryDAO;
 import app.rakuten.models.Category;
+
 /**
  * Class handle pathCategory cache, create cache, and refresh
  * 
@@ -20,9 +22,6 @@ import app.rakuten.models.Category;
  */
 @Component
 public class PathCategoryCache {
-
-	@Autowired
-	private PathCategoryBuilder pathCategoryBuilder;
 
 	@Autowired
 	private CategoryDAO categoryDAO;
@@ -34,30 +33,43 @@ public class PathCategoryCache {
 		createCache();
 	}
 
+	public int size() {
+		return CACHE_PATH.size();
+	}
+
 	private void put(Category key, List<Category> value) {
-		List<Category> path = new LinkedList<Category>();
-		path.addAll(value);
-		CACHE_PATH.put(key, path);
+		CACHE_PATH.put(key, value);
 	}
 
 	public List<Category> getPath(Category category) {
 		if (CACHE_PATH.containsKey(category)) {
 			return CACHE_PATH.get(category);
 		} else {
-			pathCategoryBuilder.build(category);
-			put(category, pathCategoryBuilder.getPathCategory());
+			put(category, build(category));
 			return CACHE_PATH.get(category);
 		}
 	}
 
-	public int size() {
-		return CACHE_PATH.size();
-	}
-
 	private void createCache() {
 		for (Category category : categoryDAO.findAll()) {
-			pathCategoryBuilder.build(category);
-			put(category, pathCategoryBuilder.getPathCategory());
+			put(category, build(category));
 		}
 	}
+
+	private List<Category> build(Category category) {
+		List<Category> pathCategory = new LinkedList<Category>();
+		pathCategory.add(category);
+		buildPathCategory(category, pathCategory);
+		Collections.reverse(pathCategory);
+		return pathCategory;
+	}
+
+	private void buildPathCategory(Category category, List<Category> pathCategory) {
+		if (category.getParent() != null) {
+			Category next = categoryDAO.findOne(category.getParent());
+			pathCategory.add(next);
+			buildPathCategory(next, pathCategory);
+		}
+	}
+
 }
