@@ -4,17 +4,56 @@ import java.util.List;
 
 import app.rakuten.models.Category;
 
+/**
+ * Interface DAO CRUD of Category interface provide base method for control of the record
+ * 
+ * @author Sergey Ogarkov
+ *
+ */
 public interface CategoryDAO {
-	Category findOne(long id);
+	/**
+	 * Found Category by Id
+	 * 
+	 * @param id
+	 * @return Category
+	 */
+	public Category findOne(long id);
 
-	List<Category> findAll();
+	/**
+	 * Found all Categoryes in table
+	 * 
+	 * @return List of the Categoryes
+	 */
+	public List<Category> findAll();
 
-	void create(Category entity);
+	/**
+	 * Create new Category
+	 * 
+	 * @param Category
+	 */
+	public void create(Category category);
 
-	Category update(Category entity);
+	/**
+	 * Update to change exists Category
+	 * 
+	 * @param Category
+	 * @return Category with changing
+	 */
+	public Category update(Category category);
 
-	void delete(Category entity);
+	/**
+	 * Delete category by object Category
+	 * 
+	 * @param Category
+	 */
+	public void delete(Category category);
 
-	void deleteById(long entityId);
+	/**
+	 * Delete Category
+	 * 
+	 * @param id
+	 *            of the Category
+	 */
+	public void deleteById(long id);
 
 }

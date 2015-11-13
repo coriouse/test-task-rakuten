@@ -12,7 +12,12 @@ import org.springframework.stereotype.Component;
 
 import app.rakuten.dao.CategoryDAO;
 import app.rakuten.models.Category;
-
+/**
+ * Class handle pathCategory cache, create cache, and refresh
+ * 
+ * @author Sergey Ogarkov
+ *
+ */
 @Component
 public class PathCategoryCache {
 

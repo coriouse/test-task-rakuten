@@ -6,8 +6,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * 
+ * Anstract DAO class of CRUD
+ * 
+ * @author Sergey Ogarkov
+ *
+ * @param <T>
+ *            Generic class for DAO
+ */
 public abstract class GenericDAO<T extends Serializable> {
 
 	private Class<T> clazz;
@@ -48,5 +55,4 @@ public abstract class GenericDAO<T extends Serializable> {
 	protected EntityManager getEntityManager() {
 		return entityManager;
 	}
-
 }

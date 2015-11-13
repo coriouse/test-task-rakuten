@@ -1,7 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ page session="false"%>
 <html>
 <head>
 <title>Products</title>
@@ -42,19 +44,25 @@
 .tg .tg-4eph {
 	background-color: #f9f9f9
 }
-.errorblock{
+
+.errorblock {
 	color: #000;
 	background-color: #ffEEEE;
 	border: 3px solid #ff0000;
-	padding:8px;
-	margin:16px;
+	padding: 8px;
+	margin: 16px;
 }
-
 </style>
 </head>
-<body>	
+<body>
 
-<a href="<c:url value='/create' />">Add new Product</a>
+	<jsp:include page="info_panel.jsp" />
+
+	<security:authorize access="hasRole('ROLE_ADMIN')">
+		<a href="<c:url value='/create' />">Add new Product</a>
+		<br />
+	</security:authorize>
+
 	<br>
 	<h3>Products</h3>
 	<c:if test="${!empty listProducts}">
@@ -62,35 +70,39 @@
 			<tr>
 				<th width="80">ID</th>
 				<th width="120">Name</th>
-				
+
 				<th width="120">Price</th>
 				<th width="120">Description</th>
-				<th width="120">Avaliable</th>				
+				<th width="120">Avaliable</th>
 				<th width="120">Category</th>
 				<th width="120">Path Category</th>
-				<th width="60">Edit</th>
-				<th width="60">Delete</th>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
+					<th width="60">Edit</th>
+					<th width="60">Delete</th>
+				</security:authorize>
 			</tr>
 			<c:forEach items="${listProducts}" var="product">
 				<tr>
 					<td>${product.id}</td>
 					<td>${product.name}</td>
 					<td>${product.price}</td>
-					<td>${product.description}</td>					
+					<td>${product.description}</td>
 					<td>${product.avaliable}</td>
 					<td>${product.category.name}</td>
-					
+
 					<td>
 						<table>
 							<tr>
-								<c:forEach items="${product.path}" var="category">								
-									<td>${category.name}</td>														
+								<c:forEach items="${product.path}" var="category">
+									<td>${category.name}</td>
 								</c:forEach>
 							</tr>
-						</table>	
+						</table>
 					</td>
-					<td><a href="<c:url value='/edit/${product.id}' />">Edit</a></td>
-					<td><a href="<c:url value='/delete/${product.id}' />">Delete</a></td>
+					<security:authorize access="hasRole('ROLE_ADMIN')">
+						<td><a href="<c:url value='/edit/${product.id}' />">Edit</a></td>
+						<td><a href="<c:url value='/delete/${product.id}' />">Delete</a></td>
+					</security:authorize>
 				</tr>
 			</c:forEach>
 		</table>

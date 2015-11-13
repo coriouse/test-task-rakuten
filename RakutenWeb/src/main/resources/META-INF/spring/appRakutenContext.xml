@@ -7,16 +7,23 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	
+
 	<jdbc:embedded-database id="dataSource" type="H2" />
 	
+	<!-- Initialization of test DB -->
 	<jdbc:initialize-database data-source="dataSource">
-			<jdbc:script location="classpath:META-INF/sql/schema.sql"/>
-			<jdbc:script location="classpath:META-INF/sql/data.sql"/> 	
-		</jdbc:initialize-database>	
+		<jdbc:script location="classpath:META-INF/sql/schema.sql" />
+		<jdbc:script location="classpath:META-INF/sql/data.sql" />
+	</jdbc:initialize-database>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+	
 	<context:component-scan base-package="app.rakuten.*" />
+	<!--Bean define using of message source-->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/messages/message" />
+	</bean>
+
 
 </beans>

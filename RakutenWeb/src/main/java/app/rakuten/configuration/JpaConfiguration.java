@@ -14,7 +14,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-
+/**
+ * Configuration of JPA
+ * 
+ * @author Sergey Ogarkov
+ *
+ */
 @Configuration
 public class JpaConfiguration {
 

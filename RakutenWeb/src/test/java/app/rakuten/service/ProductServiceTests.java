@@ -25,8 +25,7 @@ public class ProductServiceTests {
 	@Test
 	public void testSaveProduct() {
 		Category category = categoryDAO.findOne(6L);
-		Product product = new Product();
-		product.setId(2L);
+		Product product = new Product();		
 		product.setName("Red t-short");
 		product.setCategory(category);
 		product.setPrice(3f);
@@ -38,8 +37,7 @@ public class ProductServiceTests {
 	@Test
 	public void testListProducts() {
 		Category category = categoryDAO.findOne(6L);
-		Product product = new Product();
-		product.setId(3L);
+		Product product = new Product();		
 		product.setName("Red t-short");
 		product.setCategory(category);
 		product.setPrice(3f);

@@ -1,11 +1,14 @@
 package app.rakuten.dao;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import app.rakuten.models.Category;
-
+/**
+ * Implementation abstract DAO for Category class, class extends Generic abstract class
+ * 
+ * @author Sergey Ogarkov
+ *
+ */
 @Repository
 public class CategoryDAOImpl extends GenericDAO<Category> implements CategoryDAO {
 
@@ -13,7 +16,5 @@ public class CategoryDAOImpl extends GenericDAO<Category> implements CategoryDAO
 		super();
 		setClazz(Category.class);
 	}
-	
-	
 
 }

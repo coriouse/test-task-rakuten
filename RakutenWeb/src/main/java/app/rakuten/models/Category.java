@@ -1,33 +1,25 @@
 package app.rakuten.models;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
- * An order.
+ * Entity Category
+ * 
+ * @author Sergey Ogarkov
  */
 @Entity
 @Table(name = "T_CATEGORY")
 public class Category implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,7 +32,7 @@ public class Category implements Serializable {
 
 	private String name;
 
-	@OneToMany(mappedBy="category")	
+	@OneToMany(mappedBy = "category")
 	private Set<Product> products;
 
 	public String getName() {
@@ -51,11 +43,9 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-
 	public Set<Product> getProducts() {
 		return products;
 	}
-
 
 	public void setProducts(Set<Product> products) {
 		this.products = products;

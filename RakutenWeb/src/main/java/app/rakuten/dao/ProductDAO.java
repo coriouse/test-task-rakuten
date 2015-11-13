@@ -4,18 +4,58 @@ import java.util.List;
 
 import app.rakuten.models.Product;
 
+/**
+ * Interface DAO CRUD of Product interface provide base methods for control of
+ * the record
+ * 
+ * @author Sergey Ogarkov
+ *
+ */
 public interface ProductDAO {
 
-	Product findOne(long id);
+	/**
+	 * Found Product by Id
+	 * 
+	 * @param id
+	 * @return Product
+	 */
+	public Product findOne(long id);
 
-	List<Product> findAll();
+	/**
+	 * Found all Products in table
+	 * 
+	 * @return List of the Products
+	 */
+	public List<Product> findAll();
 
-	void create(Product entity);
+	/**
+	 * Create new Product
+	 * 
+	 * @param Product
+	 */
+	public void create(Product product);
 
-	Product update(Product entity);
+	/**
+	 * Update to change exists Product
+	 * 
+	 * @param Product
+	 * @return Product with changing
+	 */
+	public Product update(Product product);
 
-	void delete(Product entity);
+	/**
+	 * Delete product by object Product
+	 * 
+	 * @param Product
+	 */
+	public void delete(Product product);
 
-	void deleteById(long entityId);
+	/**
+	 * Delete Product
+	 * 
+	 * @param id
+	 *            of the Product
+	 */
+	public void deleteById(long id);
 
 }

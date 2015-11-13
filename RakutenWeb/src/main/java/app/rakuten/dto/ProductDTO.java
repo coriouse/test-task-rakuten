@@ -1,14 +1,19 @@
 package app.rakuten.dto;
 
-
-
 import java.util.List;
 
 import app.rakuten.models.Category;
 import app.rakuten.models.Product;
-
+/**
+ * 
+ * Class DTO modify object Product 
+ * 
+ * @author Sergey Ogarkov
+ *
+ */
 public class ProductDTO {
-	private Long id;	
+	
+	private Long id;
 
 	private String name;
 
@@ -17,20 +22,19 @@ public class ProductDTO {
 	private String avaliable;
 
 	private String description;
-	
+
 	private Category category;
 
 	private List<Category> path;
-	
+
 	public ProductDTO(Product product) {
-		this.id =  product.getId();
+		this.id = product.getId();
 		this.name = product.getName();
 		this.price = product.getPrice();
 		this.avaliable = product.getAvaliable() == 1 ? "Yes" : "No";
 		this.description = product.getDescription();
 		this.category = product.getCategory();
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -80,18 +84,18 @@ public class ProductDTO {
 		this.path = path;
 	}
 
-
 	public Category getCategory() {
 		return category;
 	}
 
-
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "ProductDTO [id=" + id + ", name=" + name + ", price=" + price + ", avaliable=" + avaliable
+				+ ", description=" + description + ", category=" + category + ", path=" + path + "]";
+	}
 
 }
