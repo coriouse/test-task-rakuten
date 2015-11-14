@@ -2,17 +2,18 @@ package app.rakuten.dto;
 
 import java.util.List;
 
-import app.rakuten.models.Category;
-import app.rakuten.models.Product;
+import app.rakuten.model.Category;
+import app.rakuten.model.Product;
+
 /**
  * 
- * Class DTO modify object Product 
+ * Class DTO modify object Product
  * 
  * @author Sergey Ogarkov
  *
  */
 public class ProductDTO {
-	
+
 	private Long id;
 
 	private String name;

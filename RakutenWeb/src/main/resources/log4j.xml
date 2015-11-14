@@ -15,6 +15,18 @@
 		<level value="info" />
 	</logger>
 	
+	<logger name="app.rakuten.cache">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="app.rakuten.service">
+		<level value="info" />
+	</logger>
+	
+	<logger name="app.rakuten.dao">
+		<level value="info" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

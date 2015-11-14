@@ -6,8 +6,8 @@
 
 	<persistence-unit name="application" transaction-type="RESOURCE_LOCAL">
 
-		<class>app.rakuten.models.Product</class>
-		<class>app.rakuten.models.Category</class>
+		<class>app.rakuten.model.Product</class>
+		<class>app.rakuten.model.Category</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	</persistence-unit>

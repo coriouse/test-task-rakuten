@@ -21,8 +21,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:/META-INF/spring/appRakutenContext.xml
-		classpath:/META-INF/spring/appRakutenSecurity.xml							
+		classpath:/spring/appRakutenContext.xml
+		classpath:/spring/appRakutenSecurity.xml							
 		</param-value>
 	</context-param>
 

@@ -1,14 +1,14 @@
-package app.rakuten.validators;
+package app.rakuten.validator;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import app.rakuten.models.Product;
+import app.rakuten.model.Product;
 
 /**
- * Validator of fields Product
+ * Validator of fields {@link Product}
  * 
  * @author Sergey Ogarkov
  *

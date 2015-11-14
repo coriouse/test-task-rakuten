@@ -3,56 +3,59 @@ package app.rakuten.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 /**
  * 
- * Anstract DAO class of CRUD
+ * DAO Interface for commons methods
  * 
  * @author Sergey Ogarkov
  *
  * @param <T>
  *            Generic class for DAO
  */
-public abstract class GenericDAO<T extends Serializable> {
+public interface GenericDAO<T extends Serializable> {
+	/**
+	 * Found entity by Id
+	 * 
+	 * @param id
+	 * @return Entity
+	 */
+	public T findOne(final long id);
 
-	private Class<T> clazz;
+	/**
+	 * Found all Entity
+	 * 
+	 * @return List of the Entityû
+	 */
+	public List<T> findAll();
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	/**
+	 * Create new Entity
+	 * 
+	 * @param Entity
+	 */
+	public void create(final T entity);
 
-	public final void setClazz(final Class<T> clazzToSet) {
-		this.clazz = clazzToSet;
-	}
+	/**
+	 * Update to change exists Entity
+	 * 
+	 * @param Entity
+	 * @return Entity with changing
+	 */
+	public T update(final T entity);
 
-	public T findOne(final long id) {
-		return entityManager.find(clazz, id);
-	}
+	/**
+	 * Delete entity by object Entity
+	 * 
+	 * @param Entity
+	 */
+	public void delete(final T entity);
 
-	@SuppressWarnings("unchecked")
-	public List<T> findAll() {
-		return entityManager.createQuery("from " + clazz.getName()).getResultList();
-	}
+	/**
+	 * Delete Entity
+	 * 
+	 * @param id
+	 *            of the Entity
+	 */
+	public void deleteById(final long entityId);
 
-	public void create(final T entity) {
-		entityManager.persist(entity);
-	}
-
-	public T update(final T entity) {
-		return entityManager.merge(entity);
-	}
-
-	public void delete(final T entity) {
-		entityManager.remove(entity);
-	}
-
-	public void deleteById(final long entityId) {
-		final T entity = findOne(entityId);
-		delete(entity);
-	}
-
-	protected EntityManager getEntityManager() {
-		return entityManager;
-	}
 }

@@ -1,5 +1,6 @@
 package app.rakuten.action;
 
+import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class IndexController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
-		
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {		
+	public String home(Locale locale, Model model) {
+		String message = String.format("Page was opened at %s", new Date());
+		LOGGER.debug(message);
 		return "redirect:/products";
 	}
-	
+
 }

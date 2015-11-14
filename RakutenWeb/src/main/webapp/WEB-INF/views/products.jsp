@@ -7,52 +7,7 @@
 <html>
 <head>
 <title>Products</title>
-<style type="text/css">
-.tg {
-	border-collapse: collapse;
-	border-spacing: 0;
-	border-color: #ccc;
-}
 
-.tg td {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	padding: 10px 5px;
-	border-style: solid;
-	border-width: 1px;
-	overflow: hidden;
-	word-break: normal;
-	border-color: #ccc;
-	color: #333;
-	background-color: #fff;
-}
-
-.tg th {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	font-weight: normal;
-	padding: 10px 5px;
-	border-style: solid;
-	border-width: 1px;
-	overflow: hidden;
-	word-break: normal;
-	border-color: #ccc;
-	color: #333;
-	background-color: #f0f0f0;
-}
-
-.tg .tg-4eph {
-	background-color: #f9f9f9
-}
-
-.errorblock {
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding: 8px;
-	margin: 16px;
-}
-</style>
 </head>
 <body>
 
@@ -62,7 +17,7 @@
 		<a href="<c:url value='/create' />">Add new Product</a>
 		<br />
 	</security:authorize>
-
+	<a href="<c:url value='/products' />">Show All Products</a>
 	<br>
 	<h3>Products</h3>
 	<c:if test="${!empty listProducts}">
@@ -94,7 +49,9 @@
 						<table>
 							<tr>
 								<c:forEach items="${product.path}" var="category">
-									<td>${category.name}</td>
+									<td>									
+									<a href="<c:url value='/products/${category.id}' />">${category.name}</a>
+									</td>
 								</c:forEach>
 							</tr>
 						</table>

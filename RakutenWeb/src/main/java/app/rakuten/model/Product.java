@@ -1,5 +1,5 @@
 
-package app.rakuten.models;
+package app.rakuten.model;
 
 import java.io.Serializable;
 
@@ -24,9 +24,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Product implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -117,4 +115,10 @@ public class Product implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + "]";
+	}
+	
 }

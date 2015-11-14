@@ -1,4 +1,4 @@
-package app.rakuten.models;
+package app.rakuten.model;
 
 import java.io.Serializable;
 import java.util.Set;

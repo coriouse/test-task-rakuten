@@ -1,4 +1,4 @@
-package app.rakuten.cache;
+package app.rakuten.service;
 
 import static org.junit.Assert.*;
 
@@ -10,30 +10,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import app.rakuten.cache.PathCategoryCache;
 import app.rakuten.dao.CategoryDAO;
-import app.rakuten.models.Category;
+import app.rakuten.model.Category;
 
 @ContextConfiguration(locations = { "/spring/appRakutenContextTest.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class PathCategoryCacheTest {
+public class CaegoryServiceTest {
 
 	@Autowired
 	private CategoryDAO categoryDAO;
 
 	
 	@Autowired
-	private PathCategoryCache pathCategoryCache;
+	private CategoryService categoryService;
 
 	@Test
 	public void testFirstCreateCache() {
-		assertEquals(10, pathCategoryCache.size());
+		assertEquals(10, categoryService.size());
 	}
 
 	@Test
 	public void testCache() {
 		// add new path to cache
-		List<Category> createPathCategory = pathCategoryCache.getPath(categoryDAO.findOne(6L));
+		List<Category> createPathCategory = categoryService.getPath(categoryService.getCategoryById(6L));
 		assertEquals(3, createPathCategory.size());
 		assertEquals("A", createPathCategory.get(0).getName());
 		assertEquals("AB", createPathCategory.get(1).getName());
@@ -43,7 +42,7 @@ public class PathCategoryCacheTest {
 		category.setName("ABCD");
 		categoryDAO.update(category);
 		// get update category from cache
-		List<Category> updatePathCategory = pathCategoryCache.getPath(categoryDAO.findOne(6L));
+		List<Category> updatePathCategory = categoryService.getPath(categoryService.getCategoryById(6L));
 		assertEquals("A", updatePathCategory.get(0).getName());
 		assertEquals("AB", updatePathCategory.get(1).getName());
 		assertEquals("ABCD", updatePathCategory.get(2).getName());

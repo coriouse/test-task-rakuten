@@ -2,8 +2,12 @@ package app.rakuten.dao;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import app.rakuten.models.Product;
+
+import app.rakuten.model.Category;
+import app.rakuten.model.Product;
 
 /**
  * Implementation abstract DAO for Product class, class extends Generic abstract
@@ -13,21 +17,19 @@ import app.rakuten.models.Product;
  *
  */
 @Repository
-public class ProductDAOImpl extends GenericDAO<Product> implements ProductDAO {
+public class ProductDAOImpl extends GenericDAOImpl<Product> implements ProductDAO {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductDAOImpl.class);
 
 	public ProductDAOImpl() {
 		super();
 		setClazz(Product.class);
 	}
 
-	/**
-	 * Find all Product by Category Id
-	 * 
-	 * @param id
-	 *            Category
-	 * @return Products which include in Category
-	 */
-	public List<Product> findAllProductByCategoryId(long id) {
-		return null;
+	@Override
+	public List<Product> findAllProductByCategoryId(Category category) {
+		String query = "from Product WHERE category = :category";
+		LOGGER.debug("findAllProductByCategoryId: %s", category);
+		return getEntityManager().createQuery(query).setParameter("category", category).getResultList();
 	}
 }

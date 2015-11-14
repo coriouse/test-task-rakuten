@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import app.rakuten.models.Category;
-import app.rakuten.models.Product;
+
+import app.rakuten.model.Category;
+import app.rakuten.model.Product;
+import app.rakuten.service.CategoryService;
 import app.rakuten.service.ProductService;
-import app.rakuten.validators.ProductEditor;
-import app.rakuten.validators.ProductValidator;
+import app.rakuten.validator.ProductEditor;
+import app.rakuten.validator.ProductValidator;
 
 /**
  * 
@@ -37,22 +39,34 @@ public class ProductController {
 	private ProductService productService;
 
 	@Autowired
+	private CategoryService categoryService;
+
+	@Autowired
 	private ProductValidator productValidator;
 
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public String listProducts(Model model) {
+		String message = "Open page show all products";
+		LOGGER.debug(message);
 		model.addAttribute("listProducts", this.productService.getListProducts());
+		return "products";
+	}
+
+	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+	public String listProductsByCategotyId(Model model, @PathVariable("id") long id) {
+		model.addAttribute("listProducts", this.productService.getListProductsByCategoryId(id));
 		return "products";
 	}
 
 	@RequestMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable("id") long id) {
+		LOGGER.debug("Delete product by %s", id);
 		this.productService.deleteById(id);
 		return "redirect:/products";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String editProduct(Model model) {
+	public String createProduct(Model model) {
 		model.addAttribute("product", new Product());
 		fillCategoryComboboxList(model);
 		return "edit";
@@ -60,7 +74,8 @@ public class ProductController {
 
 	@RequestMapping("/edit/{id}")
 	public String editProduct(@PathVariable("id") long id, Model model) {
-		model.addAttribute("product", this.productService.findOne(id));
+		LOGGER.debug("Edit product by %s", id);
+		model.addAttribute("product", this.productService.getProductById(id));
 		fillCategoryComboboxList(model);
 		return "edit";
 	}
@@ -85,12 +100,12 @@ public class ProductController {
 	}
 
 	private void fillCategoryComboboxList(Model model) {
-		model.addAttribute("categorys", this.productService.getMapCategorysProduct());
+		model.addAttribute("categories", this.categoryService.getMapCategorysProduct());
 	}
 
 	@InitBinder
 	private void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
-		binder.registerCustomEditor(Category.class, new ProductEditor(productService));
+		binder.registerCustomEditor(Category.class, new ProductEditor(categoryService));
 	}
 
 }

@@ -36,7 +36,9 @@ public class AuthorizationController {
 	public ModelAndView accesssDenied(Principal principal) {
 		ModelAndView model = new ModelAndView();
 		if (principal != null) {
-			model.addObject("message", principal.getName() + " have not permission to access to this page!");
+			String message = String.format("%s have not permission to access to this page!", principal.getName());
+			LOGGER.info(message);
+			model.addObject("message", message);
 		} else {
 			model.addObject("message", "You do not have permission to access this page!");
 		}
