@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import app.rakuten.dao.CategoryDAO;
@@ -24,7 +25,15 @@ import app.rakuten.model.Category;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-	private final static Map<Category, List<Category>> CACHE_PATH = new ConcurrentHashMap<Category, List<Category>>();
+	@Value("${cache.size}")
+	private int cacheSize;
+	/**
+	 * 
+	 * Holder of paths categories after building, size of cache you can change
+	 * over cache.size in config.properties
+	 * 
+	 */
+	private final static Map<Category, List<Category>> CACHE_PATH_CATEGORY = new ConcurrentHashMap<Category, List<Category>>();
 
 	@Autowired
 	private CategoryDAO categoryDAO;
@@ -67,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public int size() {
-		return CACHE_PATH.size();
+		return CACHE_PATH_CATEGORY.size();
 	}
 
 	/**
@@ -75,11 +84,11 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public List<Category> getPath(Category category) {
-		if (CACHE_PATH.containsKey(category)) {
-			return CACHE_PATH.get(category);
+		if (CACHE_PATH_CATEGORY.containsKey(category)) {
+			return CACHE_PATH_CATEGORY.get(category);
 		} else {
 			put(category, build(category));
-			return CACHE_PATH.get(category);
+			return CACHE_PATH_CATEGORY.get(category);
 		}
 	}
 
@@ -90,7 +99,8 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	private void put(Category key, List<Category> value) {
-		CACHE_PATH.put(key, value);
+		if (cacheSize > size())
+			CACHE_PATH_CATEGORY.put(key, value);
 	}
 
 	private List<Category> build(Category category) {

@@ -25,5 +25,6 @@
 		<property name="basename" value="/WEB-INF/messages/message" />
 	</bean>
 
+    <context:property-placeholder location="classpath:config.properties"/>
 
 </beans>
